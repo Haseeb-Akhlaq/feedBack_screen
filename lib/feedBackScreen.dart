@@ -695,32 +695,35 @@ class _UpperProfileSectionState extends State<UpperProfileSection> {
               SizedBox(height: 50),
               Row(
                 children: [
-                  Container(
-                    margin: EdgeInsets.only(left: 20, top: 20),
-                    height: 40,
-                    width: 70,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 0),
-                      child: DropdownButtonHideUnderline(
-                        child: DropdownButton(
-                          style: TextStyle(color: Colors.grey),
-                          value: language,
-                          onChanged: (v) {
-                            setState(() {
-                              language = v;
-                            });
-                          },
-                          items: [
-                            DropdownMenuItem(
-                              child: Text('Eng'),
-                              value: 'Eng',
-                            ),
-                          ],
+                  Transform.scale(
+                    scale: 0.8,
+                    child: Container(
+                      margin: EdgeInsets.only(left: 20, top: 20),
+                      height: 40,
+                      width: 70,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 0),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton(
+                            style: TextStyle(color: Colors.grey),
+                            value: language,
+                            onChanged: (v) {
+                              setState(() {
+                                language = v;
+                              });
+                            },
+                            items: [
+                              DropdownMenuItem(
+                                child: Text('Eng'),
+                                value: 'Eng',
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),

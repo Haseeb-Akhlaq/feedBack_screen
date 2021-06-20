@@ -19,7 +19,7 @@ class _FeedBackScreenState extends State<FeedBackScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: Colors.grey[200],
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -198,11 +198,13 @@ class _CardsSectionState extends State<CardsSection> {
               ),
               SizedBox(height: 20),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 60),
+                padding: const EdgeInsets.symmetric(horizontal: 80),
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: cardProgress
                         .map((e) => Container(
+                              width: 22,
+                              height: 22,
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
@@ -211,13 +213,13 @@ class _CardsSectionState extends State<CardsSection> {
                               ),
                               child: Icon(
                                 Icons.check,
-                                size: 25,
+                                size: 16,
                                 color: getColorIcon(e),
                               ),
                             ))
                         .toList()),
               ),
-              SizedBox(height: 30),
+              SizedBox(height: 45),
               if (cardNumber != 4)
                 Container(
                   width: MediaQuery.of(context).size.width * 0.75,
@@ -233,7 +235,7 @@ class _CardsSectionState extends State<CardsSection> {
         SizedBox(height: 15),
         Container(height: 2, width: double.infinity, color: Colors.grey[300]),
         Container(
-          color: Colors.white,
+          color: Colors.grey[100],
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
@@ -317,26 +319,31 @@ class _CardState extends State<Card> {
           child: Padding(
             padding: const EdgeInsets.all(13),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text(
-                  'I Didnt Have To Wait Long For My Appointment',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.grey[600],
-                    fontSize: MediaQuery.of(context).size.width * 0.1,
-                    wordSpacing: 5,
-                    height: 1.5,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 35),
+                  child: Text(
+                    'I Didn\'t Have To Wait Long For My Appointment',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.grey[600],
+                      fontSize: MediaQuery.of(context).size.width * 0.070,
+                      wordSpacing: 5,
+                      height: 2.2,
+                    ),
                   ),
                 ),
+                SizedBox(height: 30),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.edit, size: 18, color: Colors.grey),
+                        ImageIcon(AssetImage('assets/Edit.png'), size: 20),
+                        SizedBox(width: 4),
                         Text(
-                          ' Suggest an edit',
+                          'Suggest an edit',
                           style: TextStyle(
                             decoration: TextDecoration.underline,
                             color: Colors.grey,
@@ -347,9 +354,14 @@ class _CardState extends State<Card> {
                     ),
                     Row(
                       children: [
-                        Icon(Icons.flag_outlined, size: 18, color: Colors.grey),
+                        ImageIcon(
+                          AssetImage('assets/Vector.png'),
+                          size: 15,
+                          color: Colors.grey,
+                        ),
+                        SizedBox(width: 4),
                         Text(
-                          ' Report',
+                          'Report',
                           style: TextStyle(
                             decoration: TextDecoration.underline,
                             color: Colors.grey,
@@ -426,17 +438,25 @@ class _BillSectionState extends State<BillSection> {
               )
             ],
           ),
-          SizedBox(height: 20),
-          Text('150.00\$', style: TextStyle(fontSize: 25)),
-          Divider(thickness: 2, color: Colors.grey[300]),
-          SizedBox(height: 20),
+          SizedBox(height: 10),
+          TextFormField(
+            initialValue: '\$150.00',
+            style: TextStyle(fontSize: 35),
+            decoration: InputDecoration(
+                border: new UnderlineInputBorder(
+                    borderSide: new BorderSide(color: Colors.grey))),
+          ),
+          SizedBox(height: 25),
           Row(
             children: [
               Text('Hypo Tip ',
                   style: TextStyle(fontSize: 18, color: Colors.grey)),
-              Icon(
-                Icons.info_outline,
-                color: AppColors.yellow,
+              Padding(
+                padding: EdgeInsets.only(top: 5.0),
+                child: Icon(
+                  Icons.info_outline,
+                  color: AppColors.yellow,
+                ),
               )
             ],
           ),
@@ -452,7 +472,7 @@ class _BillSectionState extends State<BillSection> {
               Text('25%', style: TextStyle(fontSize: 22, color: Colors.grey))
             ],
           ),
-          SizedBox(height: 20),
+          SizedBox(height: 25),
           Container(
             padding: EdgeInsets.all(10),
             width: double.infinity,
@@ -602,6 +622,7 @@ class ScoresRow extends StatelessWidget {
               )
             ],
           ),
+          SizedBox(width: 5),
           Container(width: 1, height: 30, color: Colors.grey),
           SizedBox(width: 5),
           Column(
@@ -617,8 +638,9 @@ class ScoresRow extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(width: 5),
+          SizedBox(width: 2),
           Container(width: 1, height: 30, color: Colors.grey),
+          SizedBox(width: 2),
           Column(
             children: [
               Text(
@@ -638,7 +660,13 @@ class ScoresRow extends StatelessWidget {
   }
 }
 
-class UpperProfileSection extends StatelessWidget {
+class UpperProfileSection extends StatefulWidget {
+  @override
+  _UpperProfileSectionState createState() => _UpperProfileSectionState();
+}
+
+class _UpperProfileSectionState extends State<UpperProfileSection> {
+  String language = 'Eng';
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -665,14 +693,53 @@ class UpperProfileSection extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: 50),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.4,
-                child: Image.asset('assets/logo.png'),
-              ),
-              SizedBox(height: 5),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.4,
-                child: Image.asset('assets/tip with feedback.png'),
+              Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(left: 20, top: 20),
+                    height: 40,
+                    width: 70,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 0),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton(
+                          style: TextStyle(color: Colors.grey),
+                          value: language,
+                          onChanged: (v) {
+                            setState(() {
+                              language = v;
+                            });
+                          },
+                          items: [
+                            DropdownMenuItem(
+                              child: Text('Eng'),
+                              value: 'Eng',
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 25),
+                  Column(
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        child: Image.asset('assets/logo.png'),
+                      ),
+                      SizedBox(height: 5),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        child: Image.asset('assets/tip with feedback.png'),
+                      ),
+                    ],
+                  ),
+                ],
               ),
               SizedBox(height: 25),
               Container(

@@ -62,9 +62,9 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: bolt-regular
+    - family: markWeb
       fonts:
-         - asset: assets/fonts/bolt-Regular.ttf
+         - asset: assets/fonts/mark-web.ttf
 
     - family: bolt-bold
       fonts:

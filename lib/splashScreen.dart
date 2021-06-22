@@ -11,7 +11,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xfff8f4f8),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -28,7 +28,9 @@ class _SplashScreenState extends State<SplashScreen> {
               padding: const EdgeInsets.all(20),
               child: Container(
                   padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(color: Colors.white),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(15)),
                   child: Column(
                     children: [
                       Image.asset('assets/did_you_know.PNG'),

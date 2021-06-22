@@ -19,12 +19,11 @@ class _FeedBackScreenState extends State<FeedBackScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+      backgroundColor: Color(0xfff8f4f8),
       body: SingleChildScrollView(
         child: Column(
           children: [
             UpperProfileSection(),
-            SizedBox(height: 10),
             Text(
               'Life is Beautiful.🔥 Be Colorful.🌈 \n                    And Be You.👑',
               style: TextStyle(fontSize: 16, color: Colors.grey),
@@ -132,7 +131,7 @@ class _CardsSectionState extends State<CardsSection> {
       return Colors.green;
     }
     if (e == CardGesture.disagree) {
-      return Colors.red;
+      return Colors.white;
     }
     if (e == CardGesture.skip) {
       return Colors.transparent;
@@ -235,7 +234,7 @@ class _CardsSectionState extends State<CardsSection> {
         SizedBox(height: 15),
         Container(height: 2, width: double.infinity, color: Colors.grey[300]),
         Container(
-          color: Colors.grey[100],
+          color: Color(0xfffbf9fb),
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
@@ -387,6 +386,28 @@ class BillSection extends StatefulWidget {
 }
 
 class _BillSectionState extends State<BillSection> {
+  String percentageSelected = '15';
+  double price = 150.00;
+
+  double calculatePrice() {
+    if (percentageSelected == '0') {
+      return 0;
+    }
+    if (percentageSelected == '10') {
+      return (price * 10) / 100;
+    }
+    if (percentageSelected == '15') {
+      return (price * 15) / 100;
+    }
+    if (percentageSelected == '20') {
+      return (price * 20) / 100;
+    }
+    if (percentageSelected == '25') {
+      return (price * 25) / 100;
+    }
+    return price;
+  }
+
   String currency = '\$ USD';
   @override
   Widget build(BuildContext context) {
@@ -439,12 +460,33 @@ class _BillSectionState extends State<BillSection> {
             ],
           ),
           SizedBox(height: 10),
-          TextFormField(
-            initialValue: '\$150.00',
-            style: TextStyle(fontSize: 35),
-            decoration: InputDecoration(
-                border: new UnderlineInputBorder(
-                    borderSide: new BorderSide(color: Colors.grey))),
+          Row(
+            children: [
+              Text('\$', style: TextStyle(fontSize: 35)),
+              Expanded(
+                child: TextFormField(
+                  cursorColor: AppColors.yellow,
+                  initialValue: price.toString(),
+                  onChanged: (v) {
+                    setState(() {
+                      price = double.parse(v);
+                    });
+                  },
+                  style: TextStyle(fontSize: 35),
+                  decoration: InputDecoration(
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                    border: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
           SizedBox(height: 25),
           Row(
@@ -464,12 +506,67 @@ class _BillSectionState extends State<BillSection> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('0%', style: TextStyle(fontSize: 22, color: Colors.grey)),
-              Text('10%', style: TextStyle(fontSize: 22, color: Colors.grey)),
-              Text('15%',
-                  style: TextStyle(fontSize: 22, color: AppColors.yellow)),
-              Text('20%', style: TextStyle(fontSize: 22, color: Colors.grey)),
-              Text('25%', style: TextStyle(fontSize: 22, color: Colors.grey))
+              GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      percentageSelected = '0';
+                    });
+                  },
+                  child: Text('0%',
+                      style: TextStyle(
+                          fontSize: 22,
+                          color: percentageSelected == '0'
+                              ? AppColors.yellow
+                              : Colors.grey))),
+              GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      percentageSelected = '10';
+                    });
+                  },
+                  child: Text('10%',
+                      style: TextStyle(
+                          fontSize: 22,
+                          color: percentageSelected == '10'
+                              ? AppColors.yellow
+                              : Colors.grey))),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    percentageSelected = '15';
+                  });
+                },
+                child: Text('15%',
+                    style: TextStyle(
+                        fontSize: 22,
+                        color: percentageSelected == '15'
+                            ? AppColors.yellow
+                            : Colors.grey)),
+              ),
+              GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      percentageSelected = '20';
+                    });
+                  },
+                  child: Text('20%',
+                      style: TextStyle(
+                          fontSize: 22,
+                          color: percentageSelected == '20'
+                              ? AppColors.yellow
+                              : Colors.grey))),
+              GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      percentageSelected = '25';
+                    });
+                  },
+                  child: Text('25%',
+                      style: TextStyle(
+                          fontSize: 22,
+                          color: percentageSelected == '25'
+                              ? AppColors.yellow
+                              : Colors.grey)))
             ],
           ),
           SizedBox(height: 25),
@@ -481,7 +578,7 @@ class _BillSectionState extends State<BillSection> {
               borderRadius: BorderRadius.circular(10),
               color: AppColors.yellow.withOpacity(0.5),
             ),
-            child: Text('Tip \$22.5',
+            child: Text('Tip \$${calculatePrice()}',
                 style: TextStyle(fontSize: 22, color: Colors.white)),
           )
         ],
@@ -676,15 +773,16 @@ class _UpperProfileSectionState extends State<UpperProfileSection> {
               return LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [Colors.black, Colors.transparent],
-              ).createShader(Rect.fromLTRB(0, 0, rect.width, 360));
+                colors: [Colors.white, Colors.transparent],
+              ).createShader(Rect.fromLTRB(
+                  0, 0, rect.width, MediaQuery.of(context).size.height * 0.50));
             },
             blendMode: BlendMode.dstIn,
             child: Container(
-              height: MediaQuery.of(context).size.height * 0.48,
+              height: MediaQuery.of(context).size.height * 0.50,
               color: AppColors.purple,
               child: Container(
-                margin: EdgeInsets.only(top: 150),
+                margin: EdgeInsets.only(top: 0),
               ),
             )),
         Container(
@@ -692,7 +790,7 @@ class _UpperProfileSectionState extends State<UpperProfileSection> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: 50),
+              SizedBox(height: 60),
               Row(
                 children: [
                   Transform.scale(
@@ -728,7 +826,7 @@ class _UpperProfileSectionState extends State<UpperProfileSection> {
                       ),
                     ),
                   ),
-                  SizedBox(width: 25),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.07),
                   Column(
                     children: [
                       Container(
@@ -758,7 +856,7 @@ class _UpperProfileSectionState extends State<UpperProfileSection> {
                       'https://image.freepik.com/free-photo/portrait-happy-ginger-red-hair-girl-with-freckles-smiling-looking-camera-pastel-blue-background-copy-space_1258-783.jpg'),
                 ),
               ),
-              SizedBox(height: 30),
+              SizedBox(height: 20),
               Text(
                 'Divanna Doe',
                 style: TextStyle(fontSize: 26, color: Colors.black),
